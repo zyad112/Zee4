@@ -1,0 +1,93 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "A user profile in the Zee 4 application.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "The unique identifier of the user (Firebase Auth UID)." },
+        "email": { "type": "string", "format": "email", "description": "The user's email address." },
+        "displayName": { "type": "string", "description": "The user's display name." },
+        "handle": { "type": "string", "description": "The user's unique handle (e.g., @username)." },
+        "photoURL": { "type": "string", "format": "uri", "description": "URL to the user's profile picture." },
+        "bio": { "type": "string", "description": "A short bio about the user." },
+        "createdAt": { "type": "number", "description": "Timestamp of when the user was created." },
+        "followersCount": { "type": "number", "description": "Number of followers." },
+        "followingCount": { "type": "number", "description": "Number of users this user is following." }
+      },
+      "required": ["uid", "email", "displayName", "handle", "createdAt", "followersCount", "followingCount"]
+    },
+    "Tweet": {
+      "title": "Tweet",
+      "description": "A post/tweet created by a user.",
+      "type": "object",
+      "properties": {
+        "authorId": { "type": "string", "description": "The UID of the author." },
+        "authorName": { "type": "string", "description": "The display name of the author." },
+        "authorHandle": { "type": "string", "description": "The handle of the author." },
+        "authorPhoto": { "type": "string", "format": "uri", "description": "The profile picture of the author." },
+        "text": { "type": "string", "description": "The content of the tweet." },
+        "createdAt": { "type": "number", "description": "Timestamp of when the tweet was created." },
+        "likesCount": { "type": "number", "description": "Number of likes." },
+        "retweetsCount": { "type": "number", "description": "Number of retweets." },
+        "repliesCount": { "type": "number", "description": "Number of replies." }
+      },
+      "required": ["authorId", "authorName", "authorHandle", "text", "createdAt", "likesCount", "retweetsCount", "repliesCount"]
+    },
+    "Like": {
+      "title": "Like",
+      "description": "A record of a user liking a tweet.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "The UID of the user who liked the tweet." },
+        "tweetId": { "type": "string", "description": "The ID of the liked tweet." },
+        "createdAt": { "type": "number", "description": "Timestamp of the like." }
+      },
+      "required": ["userId", "tweetId", "createdAt"]
+    },
+    "Retweet": {
+      "title": "Retweet",
+      "description": "A record of a user retweeting a tweet.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "The UID of the user who retweeted." },
+        "tweetId": { "type": "string", "description": "The ID of the retweeted tweet." },
+        "createdAt": { "type": "number", "description": "Timestamp of the retweet." }
+      },
+      "required": ["userId", "tweetId", "createdAt"]
+    },
+    "Follow": {
+      "title": "Follow",
+      "description": "A record of a user following another user.",
+      "type": "object",
+      "properties": {
+        "followerId": { "type": "string", "description": "The UID of the user who is following." },
+        "followingId": { "type": "string", "description": "The UID of the user being followed." },
+        "createdAt": { "type": "number", "description": "Timestamp of the follow." }
+      },
+      "required": ["followerId", "followingId", "createdAt"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "Stores user profiles."
+    },
+    "tweets/{tweetId}": {
+      "schema": { "$ref": "#/entities/Tweet" },
+      "description": "Stores all tweets."
+    },
+    "likes/{likeId}": {
+      "schema": { "$ref": "#/entities/Like" },
+      "description": "Stores all likes. Document ID is usually {userId}_{tweetId}."
+    },
+    "retweets/{retweetId}": {
+      "schema": { "$ref": "#/entities/Retweet" },
+      "description": "Stores all retweets. Document ID is usually {userId}_{tweetId}."
+    },
+    "follows/{followId}": {
+      "schema": { "$ref": "#/entities/Follow" },
+      "description": "Stores all follow relationships. Document ID is usually {followerId}_{followingId}."
+    }
+  }
+}
