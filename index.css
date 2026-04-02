@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-black text-white antialiased;
+  }
+  
+  /* Light Mode Overrides */
+  body.light {
+    @apply bg-white text-black;
+  }
+  body.light .bg-black {
+    @apply bg-white;
+  }
+  body.light .text-white {
+    @apply text-black;
+  }
+  body.light .border-zinc-800 {
+    @apply border-zinc-200;
+  }
+  body.light .bg-zinc-900 {
+    @apply bg-zinc-100;
+  }
+  body.light .hover\:bg-zinc-900:hover {
+    @apply bg-zinc-100;
+  }
+  body.light .hover\:bg-zinc-900\/50:hover {
+    @apply bg-zinc-50;
+  }
+  body.light .bg-zinc-800 {
+    @apply bg-zinc-200;
+  }
+  body.light .hover\:bg-zinc-800:hover {
+    @apply bg-zinc-200;
+  }
+  body.light .divide-zinc-800 > :not([hidden]) ~ :not([hidden]) {
+    @apply border-zinc-200;
+  }
+  body.light .bg-white {
+    @apply bg-black;
+  }
+  body.light .text-black {
+    @apply text-white;
+  }
+  body.light .border-black {
+    @apply border-white;
+  }
+  body.light .fill-white {
+    @apply fill-black;
+  }
+}
